@@ -1,0 +1,17 @@
+# SAM template for CodeBuild
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: A simple AWS Lambda for fetching all comments of a subforum from the ForumNodes DynamnoDB table.
+Resources:
+  getCommentsForums:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/getComments-1.0-SNAPSHOT.jar
+      Handler: com.revature.get_comments.GetCommentsHandler
+      Runtime: java8.al2
+      Description: Java function
+      MemorySize: 256
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - arn:aws:iam::011217676466:policy/get-subforums-fx-readonly-policy
