@@ -31,7 +31,7 @@ public class ThreadsRepo {
         queryInputs.put(":parentID", new AttributeValue().withS(parent));
 
         DynamoDBQueryExpression query = new DynamoDBQueryExpression()
-                .withIndexName("parent-index")
+                .withIndexName("parent-date_created-index")
                 .withKeyConditionExpression("parent = :parentID")
                 .withExpressionAttributeValues(queryInputs)
                 .withConsistentRead(false);

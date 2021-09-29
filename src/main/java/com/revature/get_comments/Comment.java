@@ -22,17 +22,17 @@ import java.util.List;
         @DynamoDBAttribute
         private List<String> ancestors;
 
-        @DynamoDBIndexHashKey(attributeName = "parent", globalSecondaryIndexName = "parent-index")
+        @DynamoDBAttribute
         private String parent;
 
         @DynamoDBAttribute
         private String description;
 
         @DynamoDBAttribute
-        private int childCount;
+        private int child_count;
 
         @DynamoDBAttribute
-        private String dateCreated;
+        private String date_created;
 
         @DynamoDBAttribute
         private String owner;
@@ -47,7 +47,7 @@ import java.util.List;
             this.parent = ancestors.get(1);
             this.description = description;
             this.tags = null;
-            this.childCount = 0;
-            this.dateCreated = LocalDateTime.now().toString();
+            this.child_count = 0;
+            this.date_created = LocalDateTime.now().toString();
         }
 }
