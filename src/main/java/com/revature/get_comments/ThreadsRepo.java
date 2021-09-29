@@ -31,8 +31,10 @@ public class ThreadsRepo {
         queryInputs.put(":parentID", new AttributeValue().withS(parent));
 
         DynamoDBQueryExpression query = new DynamoDBQueryExpression()
-                .withFilterExpression("parent = :parentID")
-                .withExpressionAttributeValues(queryInputs);
+                .withIndexName("parent-index")
+                .withKeyConditionExpression("parent = :parentID")
+                .withExpressionAttributeValues(queryInputs)
+                .withConsistentRead(false);
 
         return dbReader.query(Comment.class, query);
     }
