@@ -3,6 +3,14 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: A simple AWS Lambda for fetching all comments of a subforum from the ForumNodes DynamnoDB table.
 Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Cors:
+        AllowMethods: "'GET'"
+        AllowHeaders: "'Authorization'"
+        AllowOrigin: "'*'"
   getCommentsForums:
     Type: AWS::Serverless::Function
     Properties:
