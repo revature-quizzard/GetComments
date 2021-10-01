@@ -49,17 +49,25 @@ public class GetCommentsHandler implements RequestHandler<APIGatewayProxyRequest
             headers.put("Access-Control-Allow-Origin", "*");
             responseEvent.setHeaders(headers);
             responseEvent.setBody(mapper.toJson(comments));
-
+            responseEvent.setStatusCode(200);
             return responseEvent;
         } catch (ValidationException ve) {
             responseEvent.setStatusCode(400);
             String payload = ve.getMessage();
             responseEvent.setBody(mapper.toJson(payload));
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization");
+            headers.put("Access-Control-Allow-Origin", "*");
+            responseEvent.setHeaders(headers);
             return responseEvent;
         } catch (NullPointerException npe) {
             responseEvent.setStatusCode(404);
             String payload = "No path parameter provided";
             responseEvent.setBody(mapper.toJson(payload));
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization");
+            headers.put("Access-Control-Allow-Origin", "*");
+            responseEvent.setHeaders(headers);
             return responseEvent;
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
@@ -67,6 +75,10 @@ public class GetCommentsHandler implements RequestHandler<APIGatewayProxyRequest
             e.printStackTrace(pw);
             String sStackTrace = sw.toString();
             responseEvent.setStatusCode(500);
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization");
+            headers.put("Access-Control-Allow-Origin", "*");
+            responseEvent.setHeaders(headers);
             responseEvent.setBody(mapper.toJson(sStackTrace));
             return responseEvent;
         }
