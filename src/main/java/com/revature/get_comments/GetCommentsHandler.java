@@ -39,9 +39,9 @@ public class GetCommentsHandler implements RequestHandler<APIGatewayProxyRequest
         try {
             List<Comment> comments = nodeRepo.getAllComments(requestEvent.getPathParameters().get("threadId"));
 
-            if (comments.isEmpty())
+            if (comments.isEmpty()) {
                 throw new RuntimeException("No comments found with that parentID");
-
+            }
             responseEvent.setBody(mapper.toJson(comments));
 
             return responseEvent;
