@@ -12,7 +12,9 @@ import com.revature.service.ThreadsService;
 import javax.xml.bind.ValidationException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetCommentsHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     private static final Gson mapper = new GsonBuilder().setPrettyPrinting().create();
@@ -42,6 +44,10 @@ public class GetCommentsHandler implements RequestHandler<APIGatewayProxyRequest
             if (comments.isEmpty()) {
                 throw new RuntimeException("No comments found with that parentID");
             }
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization");
+            headers.put("Access-Control-Allow-Origin", "*");
+            responseEvent.setHeaders(headers);
             responseEvent.setBody(mapper.toJson(comments));
 
             return responseEvent;
